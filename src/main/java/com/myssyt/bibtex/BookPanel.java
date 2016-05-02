@@ -44,6 +44,8 @@ public class BookPanel extends javax.swing.JPanel {
         getTfEdition().setText("");
         getTfMonth().setText("");
         getTfNote().setText("");  
+        
+        getcExport().setSelected(true);
     }
 
     /**
@@ -83,6 +85,7 @@ public class BookPanel extends javax.swing.JPanel {
         lNote = new javax.swing.JLabel();
         tfEditor = new javax.swing.JTextField();
         lEditor = new javax.swing.JLabel();
+        cExport = new javax.swing.JCheckBox();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Book"));
         setPreferredSize(new java.awt.Dimension(100, 100));
@@ -131,7 +134,7 @@ public class BookPanel extends javax.swing.JPanel {
                     .addComponent(lNote))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(optionalFieldsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfVolume, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                    .addComponent(tfVolume, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                     .addComponent(tfAddress)
                     .addComponent(tfSeries, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfEdition, javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,6 +181,8 @@ public class BookPanel extends javax.swing.JPanel {
 
         lEditor.setText("Editor");
 
+        cExport.setText("Export");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -202,13 +207,14 @@ public class BookPanel extends javax.swing.JPanel {
                             .addComponent(tfEditor)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tfBibtexkey, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cExport))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tfYear, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lAuthor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)))))
+                                .addComponent(tfAuthor)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -232,9 +238,11 @@ public class BookPanel extends javax.swing.JPanel {
                     .addComponent(tfEditor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lEditor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfBibtexkey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lBibtexkey))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfBibtexkey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lBibtexkey))
+                    .addComponent(cExport, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(optionalFieldsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -243,6 +251,7 @@ public class BookPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox cExport;
     private javax.swing.JLabel lAddress;
     private javax.swing.JLabel lAuthor;
     private javax.swing.JLabel lBibtexkey;
@@ -453,5 +462,19 @@ public class BookPanel extends javax.swing.JPanel {
      */
     public void setTfYear(javax.swing.JTextField tfYear) {
         this.tfYear = tfYear;
+    }
+
+    /**
+     * @return the cExport
+     */
+    public javax.swing.JCheckBox getcExport() {
+        return cExport;
+    }
+
+    /**
+     * @param cExport the cExport to set
+     */
+    public void setcExport(javax.swing.JCheckBox cExport) {
+        this.cExport = cExport;
     }
 }

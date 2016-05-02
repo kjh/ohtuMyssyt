@@ -36,6 +36,20 @@ public class ViiteManageri {
         return "Artikkelin lisääminen onnistui";
     }
     
+    public String lisaaArtikkeli(boolean export, String bibtexkey, String author, String title, 
+            String journal, String year, String volume, String number, 
+            String pages, String month, String note) {
+        
+            Artikkeli artikkeli = new Artikkeli(bibtexkey, author, title, 
+                    journal, year, volume, number, pages, month, note);
+            
+            artikkeli.setExportable(export);
+        
+        viitteet.add(artikkeli);
+        
+        return "Artikkelin lisääminen onnistui";
+    }
+    
     public String lisaaKirja(String bibtexkey, String author, String editor, 
             String title, String publisher, String year, String volume, 
             String number, String series, String address, String edition, 
@@ -43,6 +57,21 @@ public class ViiteManageri {
         
         Kirja kirja = new Kirja(bibtexkey, author, editor, title, publisher, 
                 year, volume, number, series, address, edition, month, note);
+            
+        viitteet.add(kirja);
+        
+        return "Kirjan lisääminen onnistui";
+    }
+    
+    public String lisaaKirja(boolean export, String bibtexkey, String author, String editor, 
+            String title, String publisher, String year, String volume, 
+            String number, String series, String address, String edition, 
+            String month, String note) {
+        
+        Kirja kirja = new Kirja(bibtexkey, author, editor, title, publisher, 
+                year, volume, number, series, address, edition, month, note);
+        
+        kirja.setExportable(export);
             
         viitteet.add(kirja);
         
@@ -64,11 +93,41 @@ public class ViiteManageri {
         return "Inproceedingsin lisääminen onnistui";
     }
     
+    public String lisaaInproceedings(boolean export, String bibtexkey, String author, String title, 
+            String booktitle, String year, String editor, String volume, 
+            String number, String series, String pages, String address, 
+            String month, String organization, String publisher,
+            String note) {
+        
+        Inproceedings inproceedings = new Inproceedings(bibtexkey, author,
+            title, booktitle, year, editor, volume, number, series, pages,
+            address, month, organization, publisher, note);
+        
+        inproceedings.setExportable(export);
+        
+        viitteet.add(inproceedings);
+        
+        return "Inproceedingsin lisääminen onnistui";
+    }
+    
     public String lisaaBooklet(String bibtexKey, String title, String author, String howpublished, String address, String month, 
             String year, String note) {
         
         Booklet booklet = new Booklet(bibtexKey, title, author, howpublished, address, month, 
             year, note);
+        
+        viitteet.add(booklet);
+        
+        return "Bookletin lisääminen onnistui";
+    }
+    
+    public String lisaaBooklet(boolean export, String bibtexKey, String title, String author, String howpublished, String address, String month, 
+            String year, String note) {
+        
+        Booklet booklet = new Booklet(bibtexKey, title, author, howpublished, address, month, 
+            year, note);
+        
+        booklet.setExportable(export);
         
         viitteet.add(booklet);
         
@@ -82,6 +141,21 @@ public class ViiteManageri {
         
         Incollection incollection = new Incollection(bibtexkey, author, title, booktitle, publisher, 
                 year, editor, volume, number, series, type, chapter, pages, address, edition, month, note);
+                        
+        viitteet.add(incollection);
+        
+        return "Incollectionin lisääminen onnistui";
+    }
+    
+    public String lisaaIncollection(boolean export, String bibtexkey, String author, String title, String booktitle,
+            String publisher, String year, String editor, String volume, String number,
+            String series, String type, String chapter, String pages, String address,
+            String edition, String month, String note) {
+        
+        Incollection incollection = new Incollection(bibtexkey, author, title, booktitle, publisher, 
+                year, editor, volume, number, series, type, chapter, pages, address, edition, month, note);
+        
+        incollection.setExportable(export);
                         
         viitteet.add(incollection);
         

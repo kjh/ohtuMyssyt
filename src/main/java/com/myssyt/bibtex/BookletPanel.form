@@ -28,7 +28,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="optionalFieldsScrollPane" pref="853" max="32767" attributes="0"/>
+              <Component id="optionalFieldsScrollPane" pref="0" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -41,7 +41,8 @@
                   <Component id="tfTitle" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="tfBibtexkey" min="-2" pref="300" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="cExport" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -58,6 +59,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tfBibtexkey" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lBibtexkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cExport" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="optionalFieldsScrollPane" min="-2" pref="305" max="-2" attributes="0"/>
@@ -112,7 +114,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfHowpublished" alignment="1" pref="739" max="32767" attributes="0"/>
+                          <Component id="tfHowpublished" alignment="1" pref="498" max="32767" attributes="0"/>
                           <Component id="tfAuthor" max="32767" attributes="0"/>
                           <Component id="tfYear" alignment="1" max="32767" attributes="0"/>
                           <Component id="tfMonth" alignment="1" max="32767" attributes="0"/>
@@ -212,5 +214,10 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JCheckBox" name="cExport">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

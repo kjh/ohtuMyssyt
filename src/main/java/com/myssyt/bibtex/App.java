@@ -9,11 +9,11 @@ public class App extends javax.swing.JFrame {
     private CardLayout cl;
     private ViiteManageri manageri;
     private DefaultTableModel model;
-    ArticlePanel articlePanel;
-    BookPanel bookPanel;
-    InproceedingsPanel inproceedingsPanel;
-    BookletPanel bookletPanel;
-    IncollectionPanel incollectionPanel;
+    private ArticlePanel articlePanel;
+    private BookPanel bookPanel;
+    private InproceedingsPanel inproceedingsPanel;
+    private BookletPanel bookletPanel;
+    private IncollectionPanel incollectionPanel;
     
     int currentReferenceType = -1;
     
@@ -30,7 +30,7 @@ public class App extends javax.swing.JFrame {
             cl.show(contPanel, "book");
             currentReferenceType = 1;
             lMessage.setText("New Book");
-        } else if (cbType.getSelectedItem().equals("InProceedings")) {
+        } else if (cbType.getSelectedItem().equals("Inproceedings")) {
             inproceedingsPanel.clearTextFields();
             cl.show(contPanel, "inproceedings");
             currentReferenceType = 2;
@@ -66,6 +66,8 @@ public class App extends javax.swing.JFrame {
             String month = articlePanel.getTfMonth().getText();
             String note = articlePanel.getTfNote().getText();
             
+            boolean export = articlePanel.getcExport().isSelected();
+            
             // table row: type, author/editor, title, year, journal/booktitle, key
             model.addRow(new Object[] {
                 "Article",
@@ -73,10 +75,11 @@ public class App extends javax.swing.JFrame {
                 title,
                 year,
                 journal,
-                bibtexkey
+                bibtexkey,
+                export
             });
 
-            msg = manageri.lisaaArtikkeli(bibtexkey, author, title, journal,
+            msg = manageri.lisaaArtikkeli(export, bibtexkey, author, title, journal,
                     year, volume, number, pages, month, note);
             lMessage.setText(msg);
         } else if (currentReferenceType == 1) {
@@ -97,7 +100,9 @@ public class App extends javax.swing.JFrame {
             String address = bookPanel.getTfAddress().getText();
             String edition = bookPanel.getTfEdition().getText();
             String month = bookPanel.getTfMonth().getText();
-            String note = bookPanel.getTfNote().getText();  
+            String note = bookPanel.getTfNote().getText(); 
+            
+            boolean export = bookPanel.getcExport().isSelected();
             
             // table row: type, author/editor, title, year, journal/booktitle, key
             model.addRow(new Object[] {
@@ -106,10 +111,11 @@ public class App extends javax.swing.JFrame {
                 title,
                 year,
                 null,
-                bibtexkey
+                bibtexkey,
+                export
             });
 
-            msg = manageri.lisaaKirja(bibtexkey, author, editor, title, publisher,
+            msg = manageri.lisaaKirja(export, bibtexkey, author, editor, title, publisher,
                     year, volume, number, series, address, edition, month, note);
             lMessage.setText(msg);
         } else if (currentReferenceType == 2) {
@@ -132,6 +138,8 @@ public class App extends javax.swing.JFrame {
             String publisher = inproceedingsPanel.getTfPublisher().getText();
             String note = inproceedingsPanel.getTfNote().getText();
             
+            boolean export = inproceedingsPanel.getcExport().isSelected();
+            
             // table row: type, author/editor, title, year, journal/booktitle, key
             model.addRow(new Object[] {
                 "Inproceedings",
@@ -139,10 +147,11 @@ public class App extends javax.swing.JFrame {
                 title,
                 year,
                 booktitle,
-                bibtexkey
+                bibtexkey,
+                export
             });
 
-            msg = manageri.lisaaInproceedings(bibtexkey, author, title,
+            msg = manageri.lisaaInproceedings(export, bibtexkey, author, title,
                     booktitle, year, editor, volume, number, series, pages,
                     address, month, organization, publisher, note);
             lMessage.setText(msg);
@@ -159,6 +168,8 @@ public class App extends javax.swing.JFrame {
             String year = bookletPanel.getTfYear().getText();
             String note = bookletPanel.getTfNote().getText();
             
+            boolean export = bookletPanel.getcExport().isSelected();
+            
             // table row: type, author/editor, title, year, journal/booktitle, key
             model.addRow(new Object[] {
                 "Booklet",
@@ -166,10 +177,11 @@ public class App extends javax.swing.JFrame {
                 title,
                 year,
                 null,
-                bibtexkey
+                bibtexkey,
+                export
             });
 
-            msg = manageri.lisaaBooklet(bibtexkey, title, author,
+            msg = manageri.lisaaBooklet(export, bibtexkey, title, author,
                     howpublished, address, month, year, note);
             lMessage.setText(msg);
         } else if (currentReferenceType == 4) {
@@ -194,6 +206,8 @@ public class App extends javax.swing.JFrame {
             String month = incollectionPanel.getTfMonth().getText();
             String note = incollectionPanel.getTfNote().getText();
             
+            boolean export = incollectionPanel.getcExport().isSelected();
+            
             // table row: type, author/editor, title, year, journal/booktitle, key
             model.addRow(new Object[] {
                 "Incollection",
@@ -201,10 +215,11 @@ public class App extends javax.swing.JFrame {
                 title,
                 year,
                 booktitle,
-                bibtexkey
+                bibtexkey,
+                export
             });
 
-            msg = manageri.lisaaIncollection(bibtexkey, author, title, booktitle,
+            msg = manageri.lisaaIncollection(export, bibtexkey, author, title, booktitle,
                 publisher, year, editor, volume, number, series, type, chapter,
                 pages, address, edition, month, note);
             lMessage.setText(msg);
@@ -223,6 +238,9 @@ public class App extends javax.swing.JFrame {
             
             if (viite.getClass().equals(Artikkeli.class)) {
                 //Artikkeli artikkeli = (Artikkeli) viite;
+                
+                boolean export = articlePanel.getcExport().isSelected();
+                viite.setExportable(export);
 
                 String bibtexkey = articlePanel.getTfBibtexkey().getText();
                 
@@ -248,10 +266,14 @@ public class App extends javax.swing.JFrame {
                 model.setValueAt(year, selectedRow, 3);
                 model.setValueAt(journal, selectedRow, 4);
                 model.setValueAt(bibtexkey, selectedRow, 5);
+                model.setValueAt(export, selectedRow, 6);
                 
                 lMessage.setText("Article updated");
             } else if (viite.getClass().equals(Kirja.class)) {
                 //Kirja kirja = (Kirja) viite;
+                
+                boolean export = bookPanel.getcExport().isSelected();
+                viite.setExportable(export);
 
                 String bibtexkey = bookPanel.getTfBibtexkey().getText();
                 
@@ -283,9 +305,13 @@ public class App extends javax.swing.JFrame {
                 model.setValueAt(year, selectedRow, 3);
                 //model.setValueAt(journal, selectedRow, 4);
                 model.setValueAt(bibtexkey, selectedRow, 5);
+                model.setValueAt(export, selectedRow, 6);
                 
                 lMessage.setText("Book updated");
             } else if (viite.getClass().equals(Booklet.class)) {
+                boolean export = bookletPanel.getcExport().isSelected();
+                viite.setExportable(export);
+                
                 Booklet booklet = (Booklet) viite;
                 
                 String bibtexkey = bookletPanel.getTfBibtexkey().getText();
@@ -319,9 +345,13 @@ public class App extends javax.swing.JFrame {
                 model.setValueAt(year, selectedRow, 3);
                 //model.setValueAt(booktitle, selectedRow, 4);
                 model.setValueAt(bibtexkey, selectedRow, 5);
+                model.setValueAt(export, selectedRow, 6);
                 
                 lMessage.setText("Booklet updated");
             } else if (viite.getClass().equals(Inproceedings.class)) {
+                boolean export = inproceedingsPanel.getcExport().isSelected();
+                viite.setExportable(export);
+                
                 Inproceedings inproceedings = (Inproceedings) viite;
                 
                 String bibtexkey = inproceedingsPanel.getTfBibtexkey().getText();
@@ -369,10 +399,14 @@ public class App extends javax.swing.JFrame {
                 model.setValueAt(year, selectedRow, 3);
                 model.setValueAt(booktitle, selectedRow, 4);
                 model.setValueAt(bibtexkey, selectedRow, 5);
+                model.setValueAt(export, selectedRow, 6);
                 
                lMessage.setText("Book updated");
                 
             } else if (viite.getClass().equals(Incollection.class)) {
+                boolean export = incollectionPanel.getcExport().isSelected();
+                viite.setExportable(export);
+                
                 Incollection incollection = (Incollection) viite;
 
                 String bibtexkey = incollectionPanel.getTfBibtexkey().getText();
@@ -429,6 +463,7 @@ public class App extends javax.swing.JFrame {
                 model.setValueAt(year, selectedRow, 3);
                 model.setValueAt(booktitle, selectedRow, 4);
                 model.setValueAt(bibtexkey, selectedRow, 5);
+                model.setValueAt(export, selectedRow, 6);
                 
                 lMessage.setText("Book updated");
             } 
@@ -446,6 +481,8 @@ public class App extends javax.swing.JFrame {
                 Artikkeli artikkeli = (Artikkeli) viite;
                 
                 articlePanel.clearTextFields();
+                
+                boolean export = viite.getExportable();
 
                 String bibtexkey = artikkeli.getBibtexKey();
                 
@@ -474,6 +511,8 @@ public class App extends javax.swing.JFrame {
                 articlePanel.getTfPages().setText(pages);
                 articlePanel.getTfMonth().setText(month);
                 articlePanel.getTfNote().setText(note);
+                
+                articlePanel.getcExport().setSelected(export);
 
                 cl.show(contPanel, "article");
                 
@@ -482,6 +521,8 @@ public class App extends javax.swing.JFrame {
                 Kirja kirja = (Kirja) viite;
                 
                 bookPanel.clearTextFields();
+                
+                boolean export = viite.getExportable();
 
                 String bibtexkey = kirja.getBibtexKey();
                 
@@ -518,6 +559,8 @@ public class App extends javax.swing.JFrame {
                 bookPanel.getTfEdition().setText(edition);
                 bookPanel.getTfMonth().setText(month);
                 bookPanel.getTfNote().setText(note); 
+                
+                bookPanel.getcExport().setSelected(export);
 
                 cl.show(contPanel, "book");
                 
@@ -526,6 +569,8 @@ public class App extends javax.swing.JFrame {
                 Inproceedings inproceedings = (Inproceedings) viite;
                 
                 inproceedingsPanel.clearTextFields();
+                
+                boolean export = viite.getExportable();
 
                 String bibtexkey = inproceedings.getBibtexKey();
                  
@@ -565,6 +610,8 @@ public class App extends javax.swing.JFrame {
                 inproceedingsPanel.getTfPublisher().setText(publisher);
                 inproceedingsPanel.getTfNote().setText(note);
                 
+                inproceedingsPanel.getcExport().setSelected(export);
+                
                 cl.show(contPanel, "inproceedings");
                 
                 lMessage.setText("Inproceedings selected");
@@ -572,6 +619,8 @@ public class App extends javax.swing.JFrame {
                 Booklet booklet = (Booklet) viite;
                 
                 bookletPanel.clearTextFields();
+                
+                boolean export = viite.getExportable();
 
                 String bibtexkey = booklet.getBibtexKey();
                 
@@ -597,6 +646,8 @@ public class App extends javax.swing.JFrame {
                 bookletPanel.getTfYear().setText(year);
                 bookletPanel.getTfNote().setText(note);
                 
+                bookletPanel.getcExport().setSelected(export);
+                
                 cl.show(contPanel, "booklet");
                 
                 lMessage.setText("Booklet selected");
@@ -604,6 +655,8 @@ public class App extends javax.swing.JFrame {
                 Incollection incollection = (Incollection) viite;
                 
                 incollectionPanel.clearTextFields();
+                
+                boolean export = viite.getExportable();
                 
                 String bibtexkey = incollection.getBibtexKey();
                 
@@ -646,6 +699,8 @@ public class App extends javax.swing.JFrame {
                 incollectionPanel.getTfEdition().setText(edition);
                 incollectionPanel.getTfMonth().setText(month);
                 incollectionPanel.getTfNote().setText(note);
+                
+                incollectionPanel.getcExport().setSelected(export);
                 
                 cl.show(contPanel, "incollection");
                 
@@ -699,7 +754,8 @@ public class App extends javax.swing.JFrame {
                     artikkeli.getTitle(),
                     artikkeli.getYear(),
                     artikkeli.getJournal(),
-                    artikkeli.getBibtexKey()
+                    artikkeli.getBibtexKey(),
+                    artikkeli.getExportable()
                 });
             } else if (viite.getClass().equals(Kirja.class)) {
                 Kirja kirja = (Kirja) viite;
@@ -710,7 +766,8 @@ public class App extends javax.swing.JFrame {
                     kirja.getTitle(),
                     kirja.getYear(),
                     null,
-                    kirja.getBibtexKey()
+                    kirja.getBibtexKey(),
+                    kirja.getExportable()
                 });
             } else if (viite.getClass().equals(Inproceedings.class)) {
                 Inproceedings inproc = (Inproceedings) viite;
@@ -721,7 +778,8 @@ public class App extends javax.swing.JFrame {
                     inproc.getTitle(),
                     inproc.getYear(),
                     inproc.getBooktitle(),
-                    inproc.getBibtexKey()
+                    inproc.getBibtexKey(),
+                    inproc.getExportable()
                 });
             } else if (viite.getClass().equals(Booklet.class)) {
                 Booklet booklet = (Booklet) viite;
@@ -732,7 +790,8 @@ public class App extends javax.swing.JFrame {
                     booklet.getTitle(),
                     booklet.getYear(),
                     null,
-                    booklet.getBibtexKey()
+                    booklet.getBibtexKey(),
+                    booklet.getExportable()
                 });
             } else if (viite.getClass().equals(Incollection.class)) {
                 Incollection incollection = (Incollection) viite;
@@ -743,7 +802,8 @@ public class App extends javax.swing.JFrame {
                     incollection.getTitle(),
                     incollection.getYear(),
                     incollection.getBooktitle(),
-                    incollection.getBibtexKey()
+                    incollection.getBibtexKey(),
+                    incollection.getExportable()
                 });
             }
         }
@@ -782,7 +842,7 @@ public class App extends javax.swing.JFrame {
             }
         });
 
-        cbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Article", "Book", "Booklet", "Incollection", "InProceedings", " " }));
+        cbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Article", "Book", "Booklet", "Incollection", "Inproceedings" }));
         cbType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTypeActionPerformed(evt);
@@ -889,9 +949,17 @@ public class App extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Entrytype", "Author/Editor", "Title", "Year", "Journal/Booktitle", "Bibtexkey"
+                "Entrytype", "Author/Editor", "Title", "Year", "Journal/Booktitle", "Bibtexkey", "Export"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         refTable.setCellEditor(null);
         refTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

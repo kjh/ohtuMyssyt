@@ -41,6 +41,8 @@ public class ArticlePanel extends javax.swing.JPanel {
         getTfPages().setText("");
         getTfMonth().setText("");
         getTfNote().setText("");
+        
+        getcExport().setSelected(true);
     }
 
     /**
@@ -74,6 +76,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         lPages = new javax.swing.JLabel();
         lMonth = new javax.swing.JLabel();
         lNote = new javax.swing.JLabel();
+        cExport = new javax.swing.JCheckBox();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Article"));
         setPreferredSize(new java.awt.Dimension(100, 100));
@@ -117,7 +120,7 @@ public class ArticlePanel extends javax.swing.JPanel {
                     .addComponent(lNote))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(optionalFieldsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+                    .addComponent(tfNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                     .addComponent(tfVolume)
                     .addComponent(tfNote, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfMonth, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -152,14 +155,16 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         optionalFieldsScrollPane.setViewportView(optionalFieldsPanel);
 
+        cExport.setText("Export");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(optionalFieldsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(optionalFieldsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lAuthor)
@@ -176,7 +181,8 @@ public class ArticlePanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfBibtexkey, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addComponent(tfYear))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cExport))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +205,8 @@ public class ArticlePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfBibtexkey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lBibtexkey))
+                    .addComponent(lBibtexkey)
+                    .addComponent(cExport))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(optionalFieldsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -208,6 +215,7 @@ public class ArticlePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox cExport;
     private javax.swing.JLabel lAuthor;
     private javax.swing.JLabel lBibtexkey;
     private javax.swing.JLabel lBooktitle;
@@ -370,5 +378,19 @@ public class ArticlePanel extends javax.swing.JPanel {
      */
     public void setTfYear(javax.swing.JTextField tfYear) {
         this.tfYear = tfYear;
+    }
+
+    /**
+     * @return the cExport
+     */
+    public javax.swing.JCheckBox getcExport() {
+        return cExport;
+    }
+
+    /**
+     * @param cExport the cExport to set
+     */
+    public void setcExport(javax.swing.JCheckBox cExport) {
+        this.cExport = cExport;
     }
 }

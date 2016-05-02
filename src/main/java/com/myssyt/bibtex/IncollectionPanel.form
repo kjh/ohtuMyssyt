@@ -30,7 +30,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="optionalFieldsScrollPane" pref="456" max="32767" attributes="0"/>
+                      <Component id="optionalFieldsScrollPane" pref="788" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -52,9 +52,17 @@
                                   <Component id="tfYear" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lPublisher" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfPublisher" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lPublisher" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="tfPublisher" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="cExport" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -91,6 +99,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tfBibtexkey" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lBibtexkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cExport" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="optionalFieldsScrollPane" min="-2" pref="214" max="-2" attributes="0"/>
@@ -176,7 +185,7 @@
                           <Component id="tfChapter" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfPages" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfAddress" alignment="0" max="32767" attributes="0"/>
-                          <Component id="tfEdition" alignment="0" pref="735" max="32767" attributes="0"/>
+                          <Component id="tfEdition" alignment="0" pref="498" max="32767" attributes="0"/>
                           <Component id="tfMonth" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfNote" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -338,6 +347,11 @@
     <Component class="javax.swing.JLabel" name="lPublisher">
       <Properties>
         <Property name="text" type="java.lang.String" value="Publisher"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cExport">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export"/>
       </Properties>
     </Component>
   </SubComponents>

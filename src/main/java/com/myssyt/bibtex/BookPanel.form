@@ -48,14 +48,15 @@
                           <Component id="tfEditor" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="tfBibtexkey" min="-2" pref="320" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="cExport" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="tfYear" min="-2" pref="320" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="lAuthor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfAuthor" pref="148" max="32767" attributes="0"/>
+                              <Component id="tfAuthor" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -89,9 +90,12 @@
                   <Component id="lEditor" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="tfBibtexkey" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lBibtexkey" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tfBibtexkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lBibtexkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="cExport" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="optionalFieldsScrollPane" min="-2" pref="214" max="-2" attributes="0"/>
@@ -165,7 +169,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="tfVolume" alignment="0" pref="621" max="32767" attributes="0"/>
+                          <Component id="tfVolume" alignment="0" pref="498" max="32767" attributes="0"/>
                           <Component id="tfAddress" alignment="1" max="32767" attributes="0"/>
                           <Component id="tfSeries" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfEdition" alignment="0" max="32767" attributes="0"/>
@@ -283,6 +287,11 @@
     <Component class="javax.swing.JLabel" name="lEditor">
       <Properties>
         <Property name="text" type="java.lang.String" value="Editor"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cExport">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export"/>
       </Properties>
     </Component>
   </SubComponents>

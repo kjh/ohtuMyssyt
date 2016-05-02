@@ -39,6 +39,8 @@ public class BookletPanel extends javax.swing.JPanel {
         getTfMonth().setText("");
         getTfYear().setText("");
         getTfNote().setText("");
+        
+        getcExport().setSelected(true);
     }
 
     /**
@@ -68,6 +70,7 @@ public class BookletPanel extends javax.swing.JPanel {
         lYear = new javax.swing.JLabel();
         tfNote = new javax.swing.JTextField();
         lNote = new javax.swing.JLabel();
+        cExport = new javax.swing.JCheckBox();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Booklet"));
         setPreferredSize(new java.awt.Dimension(100, 100));
@@ -108,7 +111,7 @@ public class BookletPanel extends javax.swing.JPanel {
                     .addComponent(lNote))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(optionalFieldsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfHowpublished, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+                    .addComponent(tfHowpublished, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                     .addComponent(tfAuthor)
                     .addComponent(tfYear, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfMonth, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -148,13 +151,15 @@ public class BookletPanel extends javax.swing.JPanel {
 
         optionalFieldsScrollPane.setViewportView(optionalFieldsPanel);
 
+        cExport.setText("Export");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(optionalFieldsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE))
+                .addComponent(optionalFieldsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -165,7 +170,8 @@ public class BookletPanel extends javax.swing.JPanel {
                     .addComponent(tfTitle)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfBibtexkey, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cExport))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +182,8 @@ public class BookletPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfBibtexkey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lBibtexkey))
+                    .addComponent(lBibtexkey)
+                    .addComponent(cExport))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(optionalFieldsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -185,6 +192,7 @@ public class BookletPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox cExport;
     private javax.swing.JLabel lAddress;
     private javax.swing.JLabel lAuthor;
     private javax.swing.JLabel lBibtexkey;
@@ -315,6 +323,20 @@ public class BookletPanel extends javax.swing.JPanel {
      */
     public void setTfYear(javax.swing.JTextField tfyear) {
         this.tfYear = tfyear;
+    }
+
+    /**
+     * @return the cExport
+     */
+    public javax.swing.JCheckBox getcExport() {
+        return cExport;
+    }
+
+    /**
+     * @param cExport the cExport to set
+     */
+    public void setcExport(javax.swing.JCheckBox cExport) {
+        this.cExport = cExport;
     }
 
 }
