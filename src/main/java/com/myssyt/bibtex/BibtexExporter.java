@@ -22,6 +22,8 @@ public class BibtexExporter {
                     exportBooklet((Booklet)viite, builder);
                 else if (viite.getClass().equals(Incollection.class))
                     exportIncollection((Incollection)viite, builder);
+                else if (viite.getClass().equals(Manual.class))
+                    exportIncollection((Incollection)viite, builder);
                 
                 builder.deleteCharAt(builder.length() - 3); // Uglily move the last comma
                 builder.append("\n\n");
@@ -151,6 +153,24 @@ public class BibtexExporter {
         if(isSet(incollection.getEdition())) builder.append("edition = {" + incollection.getEdition() + "},\n");
         if(isSet(incollection.getMonth())) builder.append("month = {" + incollection.getMonth() + "},\n");
         if(isSet(incollection.getNote())) builder.append("note = {" + incollection.getNote() + "},\n");
+        builder.append("}");
+    }
+    
+    /*
+        Technical documentation.
+        Required fields: 
+            title.
+        Optional fields: 
+            author, organization, address, edition, month, year, note.
+    */
+    private static void exportManual(Manual manual, StringBuilder builder) {
+        builder.append("@manual{" + manual.getBibtexKey() + ",\n");
+        if(isSet(manual.getTitle())) builder.append("title = {" + manual.getTitle() + "},\n");
+        if(isSet(manual.getOrganization())) builder.append("howpublished = {" + manual.getOrganization() + "},\n");
+        if(isSet(manual.getAddress())) builder.append("address = {" + manual.getAddress() + "},\n");
+        if(isSet(manual.getMonth())) builder.append("month = {" + manual.getMonth() + "},\n");
+        if(isSet(manual.getYear())) builder.append("year = {" + manual.getYear() + "},\n");
+        if(isSet(manual.getNote())) builder.append("note = {" + manual.getNote() + "},\n");
         builder.append("}");
     }
 }

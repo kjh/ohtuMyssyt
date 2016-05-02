@@ -118,3 +118,21 @@ scenario "Incollectioning lisääminen onnistuu, kun pakolliset kentät on annet
         incollection.getYear().shouldEqual "2004"
     }
 }
+
+scenario "Manualin lisääminen onnistuu, kun pakolliset kentät on annettu", {
+    given 'Pakolliset manualin kentät on annettu', {
+        bibtexkey = "manual"
+        title = "Tämä on testi; erikoismerkkien t@rina."
+        manageri = new ViiteManageri()
+    }
+
+    when 'Luodaan manual ja lisätään se järjestelmään', {
+        manageri.lisaaManual(bibtexkey, title, null, null, null, null, null, null, null)
+    }
+
+    then 'Manual löytyy järjestelmästä ja sen kentät ovat oikein', {
+        booklet = manageri.getViitteet().get(0)
+        booklet.getBibtexKey().shouldEqual "manual"
+        booklet.getTitle().shouldEqual "Tämä on testi; erikoismerkkien t@rina."
+    }
+}
