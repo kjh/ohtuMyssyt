@@ -12,7 +12,7 @@ Raportti:
 https://docs.google.com/document/d/1ajvi_6UNlSE4jIHQ2R2ETb3zxGiV35fDiLst7YzUDBE/edit?usp=sharing
 
 Definition of Done:  
-Testikattavuus 80%  
+Testikattavuus 60%  
 Selkeä käyttöliittymä  
 Käytöliittymällä voi tallentaa tärkeimmät viitetyypit sekä vähintään viisi eri viitetyyppiä  
 Backlog joka selventää asiakkalle ohjelmatoteutuksen vaiheet  
