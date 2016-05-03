@@ -23,7 +23,7 @@ public class BibtexExporter {
                 else if (viite.getClass().equals(Incollection.class))
                     exportIncollection((Incollection)viite, builder);
                 else if (viite.getClass().equals(Manual.class))
-                    exportIncollection((Incollection)viite, builder);
+                    exportManual((Manual)viite, builder);
                 
                 builder.deleteCharAt(builder.length() - 3); // Uglily move the last comma
                 builder.append("\n\n");
@@ -166,8 +166,10 @@ public class BibtexExporter {
     private static void exportManual(Manual manual, StringBuilder builder) {
         builder.append("@manual{" + manual.getBibtexKey() + ",\n");
         if(isSet(manual.getTitle())) builder.append("title = {" + manual.getTitle() + "},\n");
-        if(isSet(manual.getOrganization())) builder.append("howpublished = {" + manual.getOrganization() + "},\n");
+        if(isSet(manual.getAuthor())) builder.append("author = {" + manual.getAuthor() + "},\n");
+        if(isSet(manual.getOrganization())) builder.append("organization = {" + manual.getOrganization() + "},\n");
         if(isSet(manual.getAddress())) builder.append("address = {" + manual.getAddress() + "},\n");
+        if(isSet(manual.getEdition())) builder.append("edition = {" + manual.getEdition() + "},\n");
         if(isSet(manual.getMonth())) builder.append("month = {" + manual.getMonth() + "},\n");
         if(isSet(manual.getYear())) builder.append("year = {" + manual.getYear() + "},\n");
         if(isSet(manual.getNote())) builder.append("note = {" + manual.getNote() + "},\n");

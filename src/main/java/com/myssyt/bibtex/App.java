@@ -14,6 +14,7 @@ public class App extends javax.swing.JFrame {
     private InproceedingsPanel inproceedingsPanel;
     private BookletPanel bookletPanel;
     private IncollectionPanel incollectionPanel;
+    private ManualPanel manualPanel;
     
     int currentReferenceType = -1;
     
@@ -45,6 +46,11 @@ public class App extends javax.swing.JFrame {
             cl.show(contPanel, "incollection");
             currentReferenceType = 4;
             lMessage.setText("New Incollection");    
+        } else if (cbType.getSelectedItem().equals("Manual")) {
+            manualPanel.clearTextFields();
+            cl.show(contPanel, "manual");
+            currentReferenceType = 5;
+            lMessage.setText("New Manual");    
         }
     }
     
@@ -222,6 +228,36 @@ public class App extends javax.swing.JFrame {
             msg = manageri.lisaaIncollection(export, bibtexkey, author, title, booktitle,
                 publisher, year, editor, volume, number, series, type, chapter,
                 pages, address, edition, month, note);
+            lMessage.setText(msg);
+        } else if (currentReferenceType == 5) {
+            String bibtexkey = manualPanel.getTfBibtexkey().getText();
+            
+            String title = manualPanel.getTfTitle().getText();
+
+            // vapaavalintaiset
+            String author = manualPanel.getTfAuthor().getText();
+            String organization = manualPanel.getTfOrganization().getText();
+            String address = manualPanel.getTfAddress().getText();
+            String edition = manualPanel.getTfEdition().getText();
+            String month = manualPanel.getTfMonth().getText();
+            String year = manualPanel.getTfYear().getText();
+            String note = manualPanel.getTfNote().getText();
+            
+            boolean export = manualPanel.getcExport().isSelected();
+            
+            // table row: type, author/editor, title, year, journal/booktitle, key, export
+            model.addRow(new Object[] {
+                "Manual",
+                author,
+                title,
+                year,
+                null,
+                bibtexkey,
+                export
+            });
+
+            msg = manageri.lisaaManual(export, bibtexkey, title, author,
+                    organization, address, edition, month, year, note);
             lMessage.setText(msg);
         } else {
             lMessage.setText("Create new reference first");
@@ -466,7 +502,49 @@ public class App extends javax.swing.JFrame {
                 model.setValueAt(export, selectedRow, 6);
                 
                 lMessage.setText("Book updated");
-            } 
+            } else if (viite.getClass().equals(Manual.class)) {
+                boolean export = manualPanel.getcExport().isSelected();
+                viite.setExportable(export);
+                
+                Manual manual = (Manual) viite;
+                
+                String bibtexkey = manualPanel.getTfBibtexkey().getText();
+            
+                String title = manualPanel.getTfTitle().getText();
+
+                // vapaavalintaiset
+                String author = manualPanel.getTfAuthor().getText();
+                String  organization = manualPanel.getTfOrganization().getText();
+                String address = manualPanel.getTfAddress().getText();
+                String edition = manualPanel.getTfEdition().getText();
+                String month = manualPanel.getTfMonth().getText();
+                String year = manualPanel.getTfYear().getText();
+                String note = manualPanel.getTfNote().getText();
+                
+                manual.setBibtexKey(bibtexkey);
+
+                manual.setTitle(title);
+                
+                // vapaavalintaiset
+                manual.setAuthor(author);
+                manual.setOrganization(organization);
+                manual.setAddress(address);
+                manual.setEdition(edition);
+                manual.setMonth(month);
+                manual.setYear(year);
+                manual.setNote(note);
+                
+                // table row: type, author/editor, title, year, journal/booktitle, key
+                //model.setValueAt(viite, selectedRow, 0);
+                model.setValueAt(author, selectedRow, 1);
+                model.setValueAt(title, selectedRow, 2);
+                model.setValueAt(year, selectedRow, 3);
+                //model.setValueAt(booktitle, selectedRow, 4);
+                model.setValueAt(bibtexkey, selectedRow, 5);
+                model.setValueAt(export, selectedRow, 6);
+                
+                lMessage.setText("Manual updated");
+            }
         }
     }
     
@@ -705,6 +783,44 @@ public class App extends javax.swing.JFrame {
                 cl.show(contPanel, "incollection");
                 
                 lMessage.setText("Incollection selected");
+            } else if (model.getValueAt(selectedRow, 0).equals("Manual")) {
+                Manual manual = (Manual) viite;
+                
+                manualPanel.clearTextFields();
+                
+                boolean export = viite.getExportable();
+
+                String bibtexkey = manual.getBibtexKey();
+                
+                String title = manual.getTitle();
+
+                // vapaavalintaiset
+                String author = manual.getAuthor();
+                String organization = manual.getOrganization();
+                String address = manual.getAddress();
+                String edition = manual.getEdition();
+                String month = manual.getMonth();
+                String year = manual.getYear();
+                String note = manual.getNote();
+                
+                manualPanel.getTfBibtexkey().setText(bibtexkey);
+                
+                manualPanel.getTfTitle().setText(title);
+
+                // vapaavalintaiset
+                manualPanel.getTfAuthor().setText(author);
+                manualPanel.getTfOrganization().setText(organization);
+                manualPanel.getTfAddress().setText(address);
+                manualPanel.getTfEdition().setText(edition);
+                manualPanel.getTfMonth().setText(month);
+                manualPanel.getTfYear().setText(year);
+                manualPanel.getTfNote().setText(note);
+                
+                manualPanel.getcExport().setSelected(export);
+                
+                cl.show(contPanel, "manual");
+                
+                lMessage.setText("Manual selected");
             }
         } 
     }
@@ -731,12 +847,14 @@ public class App extends javax.swing.JFrame {
         inproceedingsPanel = new InproceedingsPanel();
         bookletPanel = new BookletPanel();
         incollectionPanel = new IncollectionPanel();
+        manualPanel = new ManualPanel();
         
         contPanel.add(articlePanel, "article");
         contPanel.add(bookPanel, "book");
         contPanel.add(inproceedingsPanel, "inproceedings");
         contPanel.add(bookletPanel, "booklet");
         contPanel.add(incollectionPanel, "incollection");
+        contPanel.add(manualPanel, "manual");
         cl = (CardLayout)contPanel.getLayout();
         cl.show(contPanel, "article"); 
         
@@ -759,7 +877,7 @@ public class App extends javax.swing.JFrame {
                 });
             } else if (viite.getClass().equals(Kirja.class)) {
                 Kirja kirja = (Kirja) viite;
-                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey
+                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey, export
                 model.addRow(new Object[] {
                     "Book",
                     kirja.getAuthor(),
@@ -771,7 +889,7 @@ public class App extends javax.swing.JFrame {
                 });
             } else if (viite.getClass().equals(Inproceedings.class)) {
                 Inproceedings inproc = (Inproceedings) viite;
-                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey
+                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey, export
                 model.addRow(new Object[] {
                     "Inproceedings",
                     inproc.getAuthor(),
@@ -783,7 +901,7 @@ public class App extends javax.swing.JFrame {
                 });
             } else if (viite.getClass().equals(Booklet.class)) {
                 Booklet booklet = (Booklet) viite;
-                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey
+                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey, export
                 model.addRow(new Object[] {
                     "Booklet",
                     booklet.getAuthor(),
@@ -795,7 +913,7 @@ public class App extends javax.swing.JFrame {
                 });
             } else if (viite.getClass().equals(Incollection.class)) {
                 Incollection incollection = (Incollection) viite;
-                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey
+                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey, export
                 model.addRow(new Object[] {
                     "Incollection",
                     incollection.getAuthor(),
@@ -804,6 +922,18 @@ public class App extends javax.swing.JFrame {
                     incollection.getBooktitle(),
                     incollection.getBibtexKey(),
                     incollection.getExportable()
+                });
+            } else if (viite.getClass().equals(Manual.class)) {
+                Manual manual = (Manual) viite;
+                // entrytype, author/editor, title, year, journal/booktitle, bibtexkey, export
+                model.addRow(new Object[] {
+                    "Manual",
+                    manual.getAuthor(),
+                    manual.getTitle(),
+                    manual.getYear(),
+                    null,
+                    manual.getBibtexKey(),
+                    manual.getExportable()
                 });
             }
         }
@@ -842,7 +972,7 @@ public class App extends javax.swing.JFrame {
             }
         });
 
-        cbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Article", "Book", "Booklet", "Incollection", "Inproceedings" }));
+        cbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Article", "Book", "Booklet", "Incollection", "Inproceedings", "Manual" }));
         cbType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTypeActionPerformed(evt);
